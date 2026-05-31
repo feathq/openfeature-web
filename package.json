@@ -60,6 +60,6 @@
     "vitest": "^4.1.6"
   },
   "resolutions": {
-    "@feathq/datafile-schema@workspace:*": "portal:../../feat-data-plane/packages/datafile-schema"
+    "@feathq/datafile-schema@workspace:*": "portal:../../packages/datafile-schema"
   }
 }
