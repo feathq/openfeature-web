@@ -221,17 +221,11 @@ __metadata:
   languageName: node
   linkType: soft
 
-"@feathq/datafile-schema@portal:../../packages/datafile-schema::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A.":
+"@feathq/feat-eval@portal:../../packages/feat-eval::locator=%40feathq%2Fopenfeature-web%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "@feathq/datafile-schema@portal:../../packages/datafile-schema::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A."
-  languageName: node
-  linkType: soft
-
-"@feathq/feat-eval@portal:../../packages/feat-eval::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A.":
-  version: 0.0.0-use.local
-  resolution: "@feathq/feat-eval@portal:../../packages/feat-eval::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A."
+  resolution: "@feathq/feat-eval@portal:../../packages/feat-eval::locator=%40feathq%2Fopenfeature-web%40workspace%3A."
   dependencies:
-    "@feathq/datafile-schema": "workspace:*"
+    "@feathq/datafile-schema": "workspace:^"
   languageName: node
   linkType: soft
 
@@ -239,7 +233,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@feathq/openfeature-web@workspace:."
   dependencies:
-    "@feathq/web-sdk": "portal:../web-sdk"
+    "@feathq/web-sdk": "npm:^0.1.0"
     "@openfeature/core": "npm:^1.10.0"
     "@openfeature/web-sdk": "npm:^1.6.0"
     "@types/node": "npm:^25.6.2"
@@ -257,8 +251,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@feathq/web-sdk@portal:../web-sdk::locator=%40feathq%2Fopenfeature-web%40workspace%3A."
   dependencies:
-    "@feathq/datafile-schema": "portal:../../packages/datafile-schema"
-    "@feathq/feat-eval": "portal:../../packages/feat-eval"
+    "@feathq/datafile-schema": "npm:^0.1.0"
+    "@feathq/feat-eval": "npm:^0.1.0"
   languageName: node
   linkType: soft
 
