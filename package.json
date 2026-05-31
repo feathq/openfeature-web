@@ -61,8 +61,8 @@
   },
   "resolutions": {
     "@feathq/web-sdk": "portal:../web-sdk",
-    "@feathq/datafile-schema": "portal:../../packages/datafile-schema",
-    "@feathq/datafile-schema@workspace:*": "portal:../../packages/datafile-schema",
-    "@feathq/feat-eval": "portal:../../packages/feat-eval"
+    "@feathq/datafile-schema": "portal:../../feat-packages/datafile-schema",
+    "@feathq/datafile-schema@workspace:*": "portal:../../feat-packages/datafile-schema",
+    "@feathq/feat-eval": "portal:../../feat-packages/feat-eval"
   }
 }
