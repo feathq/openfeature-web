@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { OpenFeature } from "@openfeature/web-sdk";
-import { FeatWebClient } from "@feathq/feat-web-sdk";
-import type { Datafile } from "@feathq/feat-web-sdk";
+import { FeatWebClient } from "@feathq/web-sdk";
+import type { Datafile } from "@feathq/web-sdk";
 import { FeatWebProvider } from "../src/provider";
 
 const DATAFILE: Datafile = {

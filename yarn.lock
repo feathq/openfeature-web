@@ -215,40 +215,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Ffeat-web-sdk%40portal%3A..%2Ffeat-web-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-feat-web%2540workspace%253A.":
+"@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Fopenfeature-web%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Ffeat-web-sdk%40portal%3A..%2Ffeat-web-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-feat-web%2540workspace%253A."
+  resolution: "@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Fopenfeature-web%40workspace%3A."
   languageName: node
   linkType: soft
 
-"@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Fopenfeature-feat-web%40workspace%3A.":
+"@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A.":
   version: 0.0.0-use.local
-  resolution: "@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Fopenfeature-feat-web%40workspace%3A."
+  resolution: "@feathq/datafile-schema@portal:../../feat-data-plane/packages/datafile-schema::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A."
   languageName: node
   linkType: soft
 
-"@feathq/feat-eval@portal:../../feat-data-plane/packages/feat-eval::locator=%40feathq%2Ffeat-web-sdk%40portal%3A..%2Ffeat-web-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-feat-web%2540workspace%253A.":
+"@feathq/feat-eval@portal:../../feat-data-plane/packages/feat-eval::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A.":
   version: 0.0.0-use.local
-  resolution: "@feathq/feat-eval@portal:../../feat-data-plane/packages/feat-eval::locator=%40feathq%2Ffeat-web-sdk%40portal%3A..%2Ffeat-web-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-feat-web%2540workspace%253A."
+  resolution: "@feathq/feat-eval@portal:../../feat-data-plane/packages/feat-eval::locator=%40feathq%2Fweb-sdk%40portal%3A..%2Fweb-sdk%3A%3Alocator%3D%2540feathq%252Fopenfeature-web%2540workspace%253A."
   dependencies:
     "@feathq/datafile-schema": "workspace:*"
   languageName: node
   linkType: soft
 
-"@feathq/feat-web-sdk@portal:../feat-web-sdk::locator=%40feathq%2Fopenfeature-feat-web%40workspace%3A.":
+"@feathq/openfeature-web@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@feathq/feat-web-sdk@portal:../feat-web-sdk::locator=%40feathq%2Fopenfeature-feat-web%40workspace%3A."
+  resolution: "@feathq/openfeature-web@workspace:."
   dependencies:
-    "@feathq/datafile-schema": "portal:../../feat-data-plane/packages/datafile-schema"
-    "@feathq/feat-eval": "portal:../../feat-data-plane/packages/feat-eval"
-  languageName: node
-  linkType: soft
-
-"@feathq/openfeature-feat-web@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@feathq/openfeature-feat-web@workspace:."
-  dependencies:
-    "@feathq/feat-web-sdk": "portal:../feat-web-sdk"
+    "@feathq/web-sdk": "portal:../web-sdk"
     "@openfeature/core": "npm:^1.10.0"
     "@openfeature/web-sdk": "npm:^1.6.0"
     "@types/node": "npm:^25.6.2"
@@ -257,9 +248,18 @@ __metadata:
     typescript: "npm:^6.0.3"
     vitest: "npm:^4.1.6"
   peerDependencies:
-    "@feathq/feat-web-sdk": ^0.1.0
+    "@feathq/web-sdk": ^0.1.0
     "@openfeature/web-sdk": ^1.0.0
   languageName: unknown
+  linkType: soft
+
+"@feathq/web-sdk@portal:../web-sdk::locator=%40feathq%2Fopenfeature-web%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@feathq/web-sdk@portal:../web-sdk::locator=%40feathq%2Fopenfeature-web%40workspace%3A."
+  dependencies:
+    "@feathq/datafile-schema": "portal:../../feat-data-plane/packages/datafile-schema"
+    "@feathq/feat-eval": "portal:../../feat-data-plane/packages/feat-eval"
+  languageName: node
   linkType: soft
 
 "@isaacs/fs-minipass@npm:^4.0.0":

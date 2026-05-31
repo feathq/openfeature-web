@@ -11,5 +11,5 @@ export default defineConfig({
   splitting: false,
   minify: false,
   // Both peer deps stay external; consumers install them alongside.
-  external: ["@feathq/feat-web-sdk", "@openfeature/web-sdk", "@openfeature/core"],
+  external: ["@feathq/web-sdk", "@openfeature/web-sdk", "@openfeature/core"],
 });

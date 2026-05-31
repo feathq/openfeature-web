@@ -7,7 +7,7 @@ import type {
   ResolutionDetails,
 } from "@openfeature/core";
 import type { Hook, Provider, ProviderStatus } from "@openfeature/web-sdk";
-import type { EvalContext, EvaluationResult, FeatWebClient } from "@feathq/feat-web-sdk";
+import type { EvalContext, EvaluationResult, FeatWebClient } from "@feathq/web-sdk";
 
 // Bridges feat's sync eval cache to the OpenFeature web Provider spec.
 // Users write `client.getBooleanValue("flag-key", false)` against the
