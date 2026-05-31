@@ -1,0 +1,53 @@
+{
+  "name": "@feathq/openfeature-feat-web",
+  "version": "0.1.0",
+  "description": "OpenFeature web-sdk Provider for feat. Wraps @feathq/feat-web-sdk to expose its sync cache through the OpenFeature client API.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/feathq/feat-control-plane-cf"
+  },
+  "type": "module",
+  "packageManager": "yarn@4.14.1",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest --run"
+  },
+  "peerDependencies": {
+    "@feathq/feat-web-sdk": "^0.1.0",
+    "@openfeature/web-sdk": "^1.0.0"
+  },
+  "dependencies": {
+    "@feathq/feat-web-sdk": "portal:../feat-web-sdk"
+  },
+  "devDependencies": {
+    "@openfeature/core": "^1.10.0",
+    "@openfeature/web-sdk": "^1.6.0",
+    "@types/node": "^25.6.2",
+    "happy-dom": "^15.11.7",
+    "tsup": "^8.3.5",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.6"
+  },
+  "resolutions": {
+    "@feathq/datafile-schema@workspace:*": "portal:../../feat-data-plane/packages/datafile-schema"
+  }
+}
