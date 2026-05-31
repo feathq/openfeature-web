@@ -1,11 +1,23 @@
 {
-  "name": "@feathq/openfeature-feat-web",
+  "name": "@feathq/openfeature-web",
   "version": "0.1.0",
-  "description": "OpenFeature web-sdk Provider for feat. Wraps @feathq/feat-web-sdk to expose its sync cache through the OpenFeature client API.",
+  "description": "OpenFeature web-sdk Provider for feat. Wraps @feathq/web-sdk to expose its sync cache through the OpenFeature client API.",
+  "keywords": [
+    "feature-flags",
+    "openfeature",
+    "openfeature-provider",
+    "feat",
+    "browser"
+  ],
   "license": "MIT",
+  "author": "feat HQ <engineering@feat.so>",
+  "homepage": "https://feat.so",
   "repository": {
     "type": "git",
-    "url": "https://github.com/feathq/feat-control-plane-cf"
+    "url": "https://github.com/feathq/openfeature-web"
+  },
+  "bugs": {
+    "url": "https://github.com/feathq/openfeature-web/issues"
   },
   "type": "module",
   "packageManager": "yarn@4.14.1",
@@ -32,11 +44,11 @@
     "test": "vitest --run"
   },
   "peerDependencies": {
-    "@feathq/feat-web-sdk": "^0.1.0",
+    "@feathq/web-sdk": "^0.1.0",
     "@openfeature/web-sdk": "^1.0.0"
   },
   "dependencies": {
-    "@feathq/feat-web-sdk": "portal:../feat-web-sdk"
+    "@feathq/web-sdk": "portal:../feat-web-sdk"
   },
   "devDependencies": {
     "@openfeature/core": "^1.10.0",
