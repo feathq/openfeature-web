@@ -1,3 +1,11 @@
+<p align="center">
+  <a href="https://feat.so">
+    <img src="https://feat.so/logo/wordmark.png" alt="feat.so" width="200" />
+  </a>
+</p>
+
+---
+
 # @feathq/openfeature-web
 
 [OpenFeature](https://openfeature.dev) web Provider for [feat](https://feat.so) feature flags. Bridges the sync evaluation cache from `@feathq/web-sdk` to OpenFeature's client-side API.
