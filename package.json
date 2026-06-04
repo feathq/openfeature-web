@@ -1,6 +1,6 @@
 {
   "name": "@feathq/openfeature-web",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OpenFeature web-sdk Provider for feat. Wraps @feathq/web-sdk to expose its sync cache through the OpenFeature client API.",
   "keywords": [
     "feature-flags",
@@ -45,6 +45,7 @@
   },
   "peerDependencies": {
     "@feathq/web-sdk": "^0.1.0",
+    "@openfeature/core": "^1.0.0",
     "@openfeature/web-sdk": "^1.0.0"
   },
   "dependencies": {
