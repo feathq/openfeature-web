@@ -27,7 +27,7 @@ import { FeatWebProvider } from "@feathq/openfeature-web";
 
 const featClient = new FeatWebClient({
   apiKey: "feat_cs_…",
-  dataPlaneUrl: "https://data.feat.so",
+  url: "https://data-01.feat.so", // optional; this is the default
 });
 
 await OpenFeature.setProviderAndWait(new FeatWebProvider(featClient));
