@@ -70,7 +70,7 @@ describe("FeatWebProvider", () => {
   it("sync getBooleanValue returns the flag value through OpenFeature", async () => {
     const featClient = new FeatWebClient({
       apiKey: "feat_cs_x",
-      dataPlaneUrl: "https://dp.example.com",
+      url: "https://dp.example.com",
       context: { targetingKey: "u1" },
       fetch: passingFetch(),
     });
@@ -88,7 +88,7 @@ describe("FeatWebProvider", () => {
   it("type mismatch returns the default with ERROR reason", async () => {
     const featClient = new FeatWebClient({
       apiKey: "feat_cs_x",
-      dataPlaneUrl: "https://dp.example.com",
+      url: "https://dp.example.com",
       context: { targetingKey: "u1" },
       fetch: passingFetch(),
     });
@@ -109,7 +109,7 @@ describe("FeatWebProvider", () => {
   it("OpenFeature.setContext propagates through onContextChange", async () => {
     const featClient = new FeatWebClient({
       apiKey: "feat_cs_x",
-      dataPlaneUrl: "https://dp.example.com",
+      url: "https://dp.example.com",
       context: { targetingKey: "before-change" },
       fetch: passingFetch(),
     });
