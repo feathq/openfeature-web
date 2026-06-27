@@ -235,7 +235,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@feathq/openfeature-web@workspace:."
   dependencies:
-    "@feathq/web-sdk": "npm:^0.3.0"
+    "@feathq/web-sdk": "npm:^0.4.0"
     "@openfeature/core": "npm:^1.10.0"
     "@openfeature/web-sdk": "npm:^1.6.0"
     "@types/node": "npm:^25.6.2"
@@ -244,19 +244,19 @@ __metadata:
     typescript: "npm:^6.0.3"
     vitest: "npm:^4.1.6"
   peerDependencies:
-    "@feathq/web-sdk": ^0.3.0
+    "@feathq/web-sdk": ^0.4.0
     "@openfeature/core": ^1.0.0
     "@openfeature/web-sdk": ^1.0.0
   languageName: unknown
   linkType: soft
 
-"@feathq/web-sdk@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@feathq/web-sdk@npm:0.3.0"
+"@feathq/web-sdk@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@feathq/web-sdk@npm:0.4.0"
   dependencies:
     "@feathq/datafile-schema": "npm:^0.1.0"
     "@feathq/feat-eval": "npm:^0.1.0"
-  checksum: 10c0/620571d037828f31422b9a020dff8352fb7c7aebb461c865a1ab93450f94ea93943c845ab45184d5f65eaa0bb194838ecd6271397c7611b09070dd24bfd43552
+  checksum: 10c0/50b58113bfa208a241a31d2d1d698ba055021584a8fc33857bb259e2ebb9e42d61763a1627c7f0741e6547fa38d1d122803a78664d70747f4971468462b5af97
   languageName: node
   linkType: hard
 
