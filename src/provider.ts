@@ -129,18 +129,46 @@ function hasContent(of: EvaluationContext): boolean {
   return false;
 }
 
-// OpenFeature's EvaluationContext is { targetingKey?, [k: string]: JsonValue }.
-// Our EvalContext is { targetingKey?, [kindKey]: ContextKindObject }. Same
-// surface; we pass through, treating top-level keys other than
-// targetingKey as context-kind buckets.
-function toEvalContext(of: EvaluationContext): EvalContext {
-  const { targetingKey, ...rest } = of;
+// OpenFeature's EvaluationContext is a flat bag: a `targetingKey` shorthand
+// plus arbitrary attributes, some scalar, some nested. We fold it into feat's
+// EvalContext:
+//   - targetingKey (string) -> out.targetingKey.
+//   - any non-array object value -> a context kind, passed through as-is
+//     (multi-context), even when it has no `key`.
+//   - remaining top-level scalars (string/number/boolean) -> merged into a
+//     default `user` kind, keyed by targetingKey (or by an explicit user.key
+//     if the caller also passed a `user` object). Explicit user attributes
+//     win over folded scalars, and we never invent a key.
+function toEvalContext(ctx: EvaluationContext): EvalContext {
   const out: EvalContext = {};
-  if (typeof targetingKey === "string") out.targetingKey = targetingKey;
-  for (const [k, v] of Object.entries(rest)) {
+  const scalars: Record<string, unknown> = {};
+  let targetingKey: string | undefined;
+  for (const [k, v] of Object.entries(ctx)) {
+    if (k === "targetingKey") {
+      if (typeof v === "string") {
+        targetingKey = v;
+        out.targetingKey = v;
+      }
+      continue;
+    }
     if (v && typeof v === "object" && !Array.isArray(v)) {
       (out as Record<string, unknown>)[k] = v;
+      continue;
     }
+    if (v === null || v === undefined) continue;
+    scalars[k] = v;
+  }
+  if (Object.keys(scalars).length > 0) {
+    const existingUser =
+      out.user && typeof out.user === "object"
+        ? (out.user as Record<string, unknown>)
+        : undefined;
+    const key = (existingUser?.key as string | undefined) ?? targetingKey;
+    (out as Record<string, unknown>).user = {
+      ...(key !== undefined ? { key } : {}),
+      ...scalars,
+      ...existingUser,
+    };
   }
   return out;
 }

@@ -48,10 +48,8 @@
     "@openfeature/core": "^1.0.0",
     "@openfeature/web-sdk": "^1.0.0"
   },
-  "dependencies": {
-    "@feathq/web-sdk": "^0.4.0"
-  },
   "devDependencies": {
+    "@feathq/web-sdk": "^0.4.0",
     "@openfeature/core": "^1.10.0",
     "@openfeature/web-sdk": "^1.6.0",
     "@types/node": "^25.6.2",

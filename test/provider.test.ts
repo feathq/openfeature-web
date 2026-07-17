@@ -123,4 +123,71 @@ describe("FeatWebProvider", () => {
     featClient.close();
     await OpenFeature.close();
   });
+
+  it("folds flat scalar attributes into a default user kind", async () => {
+    const featClient = new FeatWebClient({
+      apiKey: "feat_cs_x",
+      url: "https://dp.example.com",
+      context: { targetingKey: "seed" },
+      fetch: passingFetch(),
+    });
+    const provider = new FeatWebProvider(featClient);
+    await OpenFeature.setProviderAndWait(provider);
+
+    await OpenFeature.setContext({ targetingKey: "u1", plan: "pro" });
+
+    const ctx = featClient.currentContext();
+    expect(ctx?.targetingKey).toBe("u1");
+    expect(ctx?.user).toEqual({ key: "u1", plan: "pro" });
+
+    featClient.close();
+    await OpenFeature.close();
+  });
+
+  it("merges flat scalars into an explicit user object, explicit key wins", async () => {
+    const featClient = new FeatWebClient({
+      apiKey: "feat_cs_x",
+      url: "https://dp.example.com",
+      context: { targetingKey: "seed" },
+      fetch: passingFetch(),
+    });
+    const provider = new FeatWebProvider(featClient);
+    await OpenFeature.setProviderAndWait(provider);
+
+    await OpenFeature.setContext({
+      targetingKey: "u1",
+      plan: "pro",
+      user: { key: "explicit", tier: "gold" },
+    });
+
+    const ctx = featClient.currentContext();
+    expect(ctx?.user).toEqual({ key: "explicit", plan: "pro", tier: "gold" });
+
+    featClient.close();
+    await OpenFeature.close();
+  });
+
+  it("passes a nested organization kind through untouched", async () => {
+    const featClient = new FeatWebClient({
+      apiKey: "feat_cs_x",
+      url: "https://dp.example.com",
+      context: { targetingKey: "seed" },
+      fetch: passingFetch(),
+    });
+    const provider = new FeatWebProvider(featClient);
+    await OpenFeature.setProviderAndWait(provider);
+
+    await OpenFeature.setContext({
+      targetingKey: "u1",
+      organization: { key: "org-9", plan: "enterprise" },
+    });
+
+    const ctx = featClient.currentContext();
+    expect(ctx?.organization).toEqual({ key: "org-9", plan: "enterprise" });
+    // No scalars present, so no default user kind is synthesized.
+    expect(ctx?.user).toBeUndefined();
+
+    featClient.close();
+    await OpenFeature.close();
+  });
 });
