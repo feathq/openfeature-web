@@ -7,6 +7,7 @@ import type {
   ResolutionDetails,
 } from "@openfeature/core";
 import type { Hook, Provider, ProviderStatus } from "@openfeature/web-sdk";
+import { OpenFeatureEventEmitter, ProviderEvents } from "@openfeature/web-sdk";
 import type { EvalContext, EvaluationResult, FeatWebClient } from "@feathq/web-sdk";
 
 // Bridges feat's sync eval cache to the OpenFeature web Provider spec.
@@ -21,7 +22,15 @@ export class FeatWebProvider implements Provider {
   readonly metadata: ProviderMetadata = { name: "feat" };
   readonly runsOn = "client" as const;
   readonly hooks: Hook[] = [];
+  // Lets OpenFeature (and the React hooks built on it) react to live flag
+  // changes. We forward FeatWebClient's `change` events as
+  // ProviderEvents.ConfigurationChanged below.
+  readonly events = new OpenFeatureEventEmitter();
   status: ProviderStatus = "NOT_READY" as ProviderStatus;
+
+  // Disposer returned by FeatWebClient.on("change", ...); called on close to
+  // unsubscribe before the underlying client is torn down.
+  private unsubscribeChange: (() => void) | undefined;
 
   constructor(private readonly client: FeatWebClient) {}
 
@@ -32,6 +41,13 @@ export class FeatWebProvider implements Provider {
     if (context && hasContent(context)) {
       await this.client.setContext(toEvalContext(context));
     }
+    // Forward each flag flip (poll or stream) to OpenFeature so the client
+    // and React hooks re-render. Re-subscribing on a second initialize would
+    // leak a listener, so drop any prior subscription first.
+    this.unsubscribeChange?.();
+    this.unsubscribeChange = this.client.on("change", (event) => {
+      this.events.emit(ProviderEvents.ConfigurationChanged, { flagsChanged: [event.flagKey] });
+    });
     await this.client.ready();
     this.status = "READY" as ProviderStatus;
   }
@@ -44,6 +60,8 @@ export class FeatWebProvider implements Provider {
   }
 
   async onClose(): Promise<void> {
+    this.unsubscribeChange?.();
+    this.unsubscribeChange = undefined;
     this.client.close();
     this.status = "NOT_READY" as ProviderStatus;
   }
@@ -90,10 +108,12 @@ export class FeatWebProvider implements Provider {
         errorMessage: `flag "${flagKey}" is not an object`,
       };
     }
+    const errorCode = errorCodeFor(detail);
     return {
       value: detail.value as T,
       reason: detail.reason,
       ...(detail.variationId ? { variant: detail.variationId } : {}),
+      ...(errorCode ? { errorCode } : {}),
       ...(detail.errorMessage ? { errorMessage: detail.errorMessage } : {}),
     };
   }
@@ -112,12 +132,28 @@ function coerce<T extends boolean | string | number>(
       errorMessage: `expected ${expected}, got ${typeof detail.value}`,
     };
   }
+  const errorCode = errorCodeFor(detail);
   return {
     value: detail.value as T,
     reason: detail.reason,
     ...(detail.variationId ? { variant: detail.variationId } : {}),
+    ...(errorCode ? { errorCode } : {}),
     ...(detail.errorMessage ? { errorMessage: detail.errorMessage } : {}),
   };
+}
+
+// A missing (or otherwise unevaluable) flag comes back from web-sdk with
+// reason "ERROR" but the requested default value - which passes the runtime
+// type check above, so it reaches this branch without an errorCode. Map the
+// web-sdk errorMessage onto an OpenFeature ErrorCode. Successful reasons
+// (FALLTHROUGH / TARGETING_MATCH / SPLIT / DISABLED / STATIC / DEFAULT) get
+// none. Type mismatches are handled by callers before this runs.
+function errorCodeFor(detail: EvaluationResult<unknown>): ErrorCode | undefined {
+  if (detail.reason !== "ERROR") return undefined;
+  const message = detail.errorMessage ?? "";
+  if (message.includes("not ready")) return ErrorCode.PROVIDER_NOT_READY;
+  if (message.includes("flag could not be evaluated")) return ErrorCode.FLAG_NOT_FOUND;
+  return ErrorCode.GENERAL;
 }
 
 function hasContent(of: EvaluationContext): boolean {
