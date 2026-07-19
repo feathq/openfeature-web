@@ -1,59 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { OpenFeature } from "@openfeature/web-sdk";
 import { FeatWebClient } from "@feathq/web-sdk";
-import type { Datafile } from "@feathq/web-sdk";
 import { FeatWebProvider } from "../src/provider";
 
-const DATAFILE: Datafile = {
-  schemaVersion: 1,
-  envId: "env-1",
-  envKey: "p",
-  projectId: "p",
-  version: 1,
-  etag: "x",
-  generatedAt: new Date().toISOString(),
+// The remote-eval response shape returned by POST /sdk/v1/evaluate: resolved
+// values only (no datafile). web-sdk 0.5.0 adopts this map directly, so the
+// provider reads these values synchronously.
+const EVALUATION = {
   flags: {
-    "checkout-enabled": {
-      id: "f1",
-      key: "checkout-enabled",
-      valueType: "boolean",
-      salt: "0000000000000000",
-      archived: false,
-      isEnabled: true,
-      offVariationId: "v-off",
-      defaultVariationId: "v-on",
-      defaultRollout: null,
-      defaultBucketingContextKindKey: null,
-      variations: [
-        { id: "v-on", name: "on", value: true },
-        { id: "v-off", name: "off", value: false },
-      ],
-      targets: [],
-      rules: [],
-    },
-    greeting: {
-      id: "f2",
-      key: "greeting",
-      valueType: "string",
-      salt: "0000000000000000",
-      archived: false,
-      isEnabled: true,
-      offVariationId: "v-empty",
-      defaultVariationId: "v-hello",
-      defaultRollout: null,
-      defaultBucketingContextKindKey: null,
-      variations: [
-        { id: "v-hello", name: "hello", value: "hello" },
-        { id: "v-empty", name: "empty", value: "" },
-      ],
-      targets: [],
-      rules: [],
-    },
+    "checkout-enabled": { value: true, variationId: "v-on", reason: "FALLTHROUGH" },
+    greeting: { value: "hello", variationId: "v-hello", reason: "FALLTHROUGH" },
   },
-  segments: {},
-  contextKinds: {
-    user: { key: "user", availableForRules: true, availableForExperiments: true },
-  },
+  version: 1,
 };
 
 function passingFetch(): typeof fetch {
@@ -62,7 +20,7 @@ function passingFetch(): typeof fetch {
     ok: true,
     statusText: "ok",
     headers: { get: () => null },
-    json: async () => DATAFILE,
+    json: async () => EVALUATION,
   })) as unknown as typeof fetch;
 }
 
