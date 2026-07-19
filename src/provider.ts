@@ -135,8 +135,9 @@ function hasContent(of: EvaluationContext): boolean {
 //   - targetingKey (string) -> out.targetingKey.
 //   - any non-array object value -> a context kind, passed through as-is
 //     (multi-context), even when it has no `key`.
-//   - remaining top-level scalars (string/number/boolean) -> merged into a
-//     default `user` kind, keyed by targetingKey (or by an explicit user.key
+//   - every remaining top-level attribute (scalars, and arrays - anything that
+//     isn't a context-kind object) -> merged into a default `user` kind, keyed
+//     by targetingKey (or by an explicit user.key
 //     if the caller also passed a `user` object). Explicit user attributes
 //     win over folded scalars, and we never invent a key.
 function toEvalContext(ctx: EvaluationContext): EvalContext {
