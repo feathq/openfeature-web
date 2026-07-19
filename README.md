@@ -39,7 +39,7 @@ const enabled = client.getBooleanValue("checkout-v2", false);   // sync
 
 ## Notes
 
-- All `resolve*Evaluation` methods are synchronous: the underlying client pre-evaluates every flag into a Map on `setContext` and on each datafile refresh.
+- All `resolve*Evaluation` methods are synchronous: the underlying client caches the server-resolved flag values in a Map, refreshed on `setContext` and on each poll / stream update.
 - Type coercion: a flag declared as `boolean` returns the default with `TYPE_MISMATCH` if asked for a string, etc.
 - `OpenFeature.setContext(...)` is the canonical way to change evaluation context; the provider's `onContextChange` propagates to the client.
 
